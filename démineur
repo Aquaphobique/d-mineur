@@ -1,0 +1,112 @@
+import random
+class Demineur:
+    def __init__(self, difficulté):
+        self.difficulté = difficulté
+        if self.difficulté == "facile":
+            self.hauteur = 9
+            self.largeur = 9
+        elif self.difficulté == "intermédiaire":
+            self.hauteur = 16
+            self.largeur = 16
+        else:
+            self.difficulté = "Avancé"
+            self.hauteur = 16
+            self.largeur = 30
+        self.tab = []
+        for i in range(self.hauteur):
+            tab2 = []
+            for i in range(self.largeur):
+                m = random.randint(1,6)
+                if m == 1:
+                    tab2.append(1)
+                else :
+                    tab2.append(0)
+            self.tab.append(tab2)
+        self.tabClique = []
+        for i in range(self.hauteur):
+            tab2 = []
+            for i in range(self.largeur):
+                tab2.append('🔲️')
+            self.tabClique.append(tab2)
+        """"for i in range(len(self.tab)):
+            print(self.tab[i-1])"""
+        print()
+        for i in range(len(self.tab)):
+            print(self.tabClique[i-1])
+        print()
+        print()
+
+
+    def click(self,x,y):
+        if x > self.largeur:
+            x = self.largeur
+        if y > self.hauteur:
+            y = self.hauteur
+        if self.tabClique[y-1][x] == '⛳':
+            print("il y a un drapeau!")
+        elif self.tab[y-1][x] == 1:
+            print("perdu!")
+            self.tabClique[y-1][x] = '💣'
+        else :
+            n = 0
+            if self.tab[y][x-1] == 1:
+                n = n + 1.
+            if self.tab[y][x] == 1:
+                n = n + 1
+            if self.tab[y][x+1] == 1:
+                n = n + 1
+            if self.tab[y-1][x - 1] == 1:
+                n = n + 1
+            if self.tab[y-1][x + 1] == 1:
+                n = n + 1
+            if self.tab[y-2][x-1] == 1:
+                n = n + 1
+            if self.tab[y-2][x] == 1 :
+                n = n + 1
+            if self.tab[y-2][x+1] == 1:
+                n = n + 1
+            if n == 0 :
+                self.tabClique[y-1][x] = '0️⃣'
+            if n == 1 :
+                self.tabClique[y-1][x] = '1️⃣'
+            if n == 2 :
+                self.tabClique[y-1][x] = '2️⃣'
+            if n == 3 :
+                self.tabClique[y-1][x] = '3️⃣'
+            if n == 4 :
+                self.tabClique[y-1][x] = '4️⃣'
+            if n == 5 :
+                self.tabClique[y-1][x] = '5️⃣'
+            if n == 6 :
+                self.tabClique[y-1][x] = '6️⃣'
+            if n == 7 :
+                self.tabClique[y-1][x] = '7️⃣'
+            if n == 8 :
+                self.tabClique[y-1][x] = '8️⃣'
+        for i in range(len(self.tab)):
+            print(self.tabClique[i-1])
+        print()
+        print()
+
+    def flag(self,x,y):
+        if x > self.largeur:
+            x = self.largeur
+        if y > self.hauteur:
+            y = self.hauteur
+        if self.tabClique[y-1][x] == '⛳':
+            print("drapeau enlevé!")
+            self.tabClique[y-1][x] = '🔲'
+        else:
+            print("drapeau ajouté!")
+            self.tabClique[y-1][x] = '⛳'
+        for i in range(len(self.tab)):
+            print(self.tabClique[i-1])
+        print()
+        print()
+
+Jack = Demineur("avancé")
+Jack.flag(1,1)
+Jack.click(1,1)
+Jack.flag(1,1)
+Jack.click(1,1)
+Jack.click(3,8)
